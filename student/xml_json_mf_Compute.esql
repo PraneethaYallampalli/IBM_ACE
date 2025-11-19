@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE xml_json_mf_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        
+        DECLARE inRef REFERENCE TO InputRoot.XMLNSC.students_out.student;
+        CREATE LASTCHILD OF OutputRoot DOMAIN ('JSON') NAME 'JSON';
+  
+        CREATE FIELD OutputRoot.JSON.Data.students_out.student_out;
+        DECLARE outRef REFERENCE TO OutputRoot.Json.Data.students_out.student;
+        
+       
+
+
+        RETURN TRUE;
+    END;
+END MODULE;

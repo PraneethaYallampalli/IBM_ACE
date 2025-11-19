@@ -1,0 +1,14 @@
+
+
+CREATE FILTER MODULE FilterNodeFlow_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		   IF(Root.JSON.Data.Customer.paymentType = 'netbanking') THEN
+            RETURN FALSE;
+        ELSEIF(Root.JSON.Data.Customer.paymentType = 'Card') THEN
+            RETURN TRUE;
+        ELSE
+            RETURN UNKNOWN;
+        END IF;
+    END;
+END MODULE;

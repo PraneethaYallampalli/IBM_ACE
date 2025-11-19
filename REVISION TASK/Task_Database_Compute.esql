@@ -1,0 +1,42 @@
+CREATE COMPUTE MODULE Task_Database_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Declare output path variable
+		DECLARE outPath CHARACTER;
+
+		-- 🧠 Copy all headers
+		CALL CopyMessageHeaders();
+
+		-- 📦 (Optional) Copy full message body
+		-- CALL CopyEntireMessage();
+
+		-- 🎯 Fetch path from DB
+		SET outPath = THE (SELECT E.location FROM Database.ibm_ace.employee AS E WHERE E.idemployee = 101);
+
+		-- 🧭 Set the output file directory and file name
+		SET OutputLocalEnvironment.Destination.File.Directory = outPath;
+		SET OutputLocalEnvironment.Destination.File.Name = 
+			'Output_' || CAST(CURRENT_TIMESTAMP AS CHARACTER) || '.txt';
+
+		-- 🚀 Pass message to next node
+		SET OutputRoot = InputRoot;
+
+		RETURN TRUE;
+	END;
+
+	-- ✅ Copy all headers from input to output
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I <= J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	-- 🔁 Optional: Copy whole message
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
