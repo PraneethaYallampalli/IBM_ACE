@@ -13,7 +13,7 @@ DECLARE outRef REFERENCE TO OutputRoot.JSON.Data.result;
 
 -- Conditional Logic: Check Age
 IF (inRef.age < 18) THEN 
-    SET outRef.status = 'Minor';
+    SET outRef.status = 'Minors';
 ELSEIF inRef > 18 AND inRef < 60 THEN
     SET outRef.age.status = 'Major';
 ELSE

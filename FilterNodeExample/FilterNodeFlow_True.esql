@@ -5,7 +5,7 @@ CREATE COMPUTE MODULE FilterNodeFlow_True
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		 CALL CopyEntireMessage();
-		  SET OutputRoot.JSON.Data.status = 'Card payment successful';
+		  SET OutputRoot.JSON.Data.status = 'Card payment successfully';
 		RETURN TRUE;
 	END;
 
