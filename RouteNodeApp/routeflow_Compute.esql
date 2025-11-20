@@ -5,7 +5,7 @@ CREATE COMPUTE MODULE routeflow_Compute
 	BEGIN
 		 CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();
-		SET OutputRoot.JSON.Data.status = 'netbanking successful';
+		SET OutputRoot.JSON.Data.status = 'netbanking successfull';
 		RETURN TRUE;
 	END;
 
